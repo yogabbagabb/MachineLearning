@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+	<<<<<<< HEAD
 	<name>MachL</name>
+	=======
+	<name>LearningP_2</name>
+	>>>>>>> 4fce1d28e4d4cfed0e71a11824c164c78b895d34
 	<comment></comment>
 	<projects>
 	</projects>
