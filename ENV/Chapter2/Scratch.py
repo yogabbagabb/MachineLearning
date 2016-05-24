@@ -5,9 +5,11 @@ Created on May 23, 2016
 '''
 
 import numpy as np
+from sklearn import preprocessing as prep
 
 if __name__ == '__main__':
-    a = np.arange(3)
-    b = np.arange(3,7,2)
-    print(a,b)
-    print(np.dot(a,b))
+    a = np.random.rand(5,5)
+    print(a)
+    print(prep.minmax_scale(a))
+    
+    # 0.56391324 - 0.0560/(0.9158 - 0.0560)
