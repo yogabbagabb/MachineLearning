@@ -16,10 +16,11 @@ if __name__ == "__main__":
     array = pylab.loadtxt("ex1/ex1data1.txt", dtype = float, delimiter = ",")
     plt.scatter(array[:,0], array[:,1])
     
-    x = pylab.linspace(0,10, 1000)
+    x = pylab.linspace(0,30, num = 1000)
+    x1 = (x - 5.0269)/(22.203 - 5.0269)
     
-    
-    y = 0.17024736 + 0.08690504*x
+    y = 5.67002243 + 2.301*x1
     plt.plot(x,y)
+
     
     plt.show()

@@ -60,13 +60,13 @@ def ConstructArrays(array):
 
 if __name__ == '__main__':
     array = pylab.loadtxt("ex1/ex1data1.txt", dtype = float, delimiter = ",")
-    features, output = ConstructArrays(array)
+    features, output, min, max = ConstructArrays(array)
     
     shape = np.shape(array)
     width = shape[1]
     theta = np.zeros(width)
 
-    print(np.dot(theta, features[0]))
+    print(costFunction(features, output, [-5.2, 1.5]))
     
     theta = descend(features, output, theta, 0.1, 0.0001)
     print(theta)

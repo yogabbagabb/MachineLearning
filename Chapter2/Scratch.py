@@ -12,4 +12,6 @@ if __name__ == '__main__':
     print(a)
     print(prep.minmax_scale(a))
     
+
+    
     # 0.56391324 - 0.0560/(0.9158 - 0.0560)
