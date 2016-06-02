@@ -60,7 +60,7 @@ def ConstructArrays(array):
 
 if __name__ == '__main__':
     array = pylab.loadtxt("ex1/ex1data1.txt", dtype = float, delimiter = ",")
-    features, output, min, max = ConstructArrays(array)
+    features, output = ConstructArrays(array)
     
     shape = np.shape(array)
     width = shape[1]
