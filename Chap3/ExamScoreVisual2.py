@@ -43,20 +43,41 @@ if __name__ == "__main__":
     plt.xlabel('Test II Scores', fontsize = 12)
     plt.ylabel('Test I Scores', fontsize = 12)
     
-    x = np.linspace(-1, 1.5, 1000)
-    '''pattern = re.compile(b'[\s,]')
-    theta = np.fromregex("RegLogTheta", regexp = r"\s+,(\d+)\s+,", dtype = [(np.float128)])'''
+#     pattern = re.compile(b'[\d]')
+#     theta = np.fromregex("RegLogTheta", regexp = r"\s+,(\d+)\s+,", dtype = [(np.float128)])
 #     theta = getTheta()
 
     txt = open("RegLogTheta", "r").read()
-    txt = np.loadtxt(txt, delimiter = )
+    txt = re.sub(",", " ", txt)
+    txt = txt.split()
     
+    txt2 = open("RegLogTheta2", "r").read()
+    txt2 = re.sub(",", " ", txt2)
+    txt2 = txt2.split()
+    'txt = re.sub("[\s+]", ",", txt)'
+#     txt = txt.split(",")
+#     txt = "RegLogTheta".replace(b"\n", b"")
+    theta = np.array(txt, float)
+    theta2 = np.array(txt2,float)
     
-    y = np.zeros(1000)
+    x = np.linspace(-1, 1.5, 100)
+    y = np.linspace(-1,1.5,100)
+    z = np.empty((100,100))
+    
     for i in range(len(x)):
-        y[i] = sci.anderson(thetaFunc, xin = 0.5, args = (theta, x[i]))
+        for j in range(len(y)):
+            z[i][j] = thetaFunc(y[j], theta, x[i])
     
-    plt.plot(x,y)
+    plt.contour(x,y,z, levels = [0])
+    
+    plt.figure(2)
+    
+    for i in range(len(x)):
+        for j in range(len(y)):
+            z[i][j] = thetaFunc(y[j], theta2, x[i])
+    
+    plt.contour(x,y,z, levels = [0])
+    
     plt.show()
 
     

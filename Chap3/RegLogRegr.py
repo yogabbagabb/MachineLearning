@@ -12,12 +12,14 @@ import scipy.optimize as sp
 
 def constructVariations(X, deg):
     
-    features = np.zeros((len(X), 28)) 
+    features = np.zeros((len(X), 27)) 
     copies = sum
     spot = 0
+    stringK = []
     for i in range(1, deg + 1):
         for j in range(i + 1):
             features[:, spot] = X[:,0]**(i - j) * X[:,1]**(j)
+            stringK.append("x^" + str(i-j) + "y^" + str(j))
             spot += 1
 
     return features
@@ -49,8 +51,8 @@ if __name__ == '__main__':
     
     oneArray = np.ones((len(X),1))
     X = np.hstack((oneArray, X))
-    theta = np.zeros(29)
+    theta = np.zeros(28)
     print(costFunction(theta, X, Y, 0.1))
-    x = (sp.minimize(costFunction, x0 = theta, args = (X,Y, 0.1), method = 'BFGS'))
+    x = (sp.minimize(costFunction, x0 = theta, args = (X,Y, 0.2), method = 'Powell'))
     print(x)
     

@@ -17,11 +17,11 @@ def descend(X, Y, theta, alpha, tolerance):
         
         thCopy = np.copy(theta)
         
-        for i in range(len(thCopy)):
+        for j in range(len(thCopy)):
             sum = 0
-            for j in range(len(thCopy)):
-                sum += ((np.dot(theta, X[i])) - Y[i])*X[i,j]
-            thCopy[i] = theta[i] - alpha*(1/len(X))*sum
+            for i in range(len(X)):
+                sum += ((np.dot(theta, X[i,:])) - Y[i])*X[i,j]
+            thCopy[j] = theta[j] - alpha*(1/len(X))*sum
         
         newCost = costFunction(X, Y, thCopy)
         if (abs(cost - newCost) < tolerance):
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     width = shape[1]
     theta = np.zeros(width)
 
-    print(costFunction(features, output, [-5.2, 1.5]))
+    print(costFunction(features, output, [-3.89578088, 1.19303364]))
     
-    theta = descend(features, output, theta, 0.1, 0.0001)
+    theta = descend(features, output, theta, 0.001, 0.000001)
     print(theta)
