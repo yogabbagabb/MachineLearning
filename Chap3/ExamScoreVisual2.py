@@ -9,17 +9,18 @@ import matplotlib.pyplot as plt
 import scipy.optimize as sci
 import re
 
-def getTheta():
-    theta = np.zeros(29)
-    i = 0
-    f = open("RegLogTheta", 'r')
+
+theta = np.zeros(shape = (7,4))
+i = 0
+f = open("RegLogTheta", 'r')
+x = f.readline().rstrip()
+while x != '':
+    q = x.split()
+    for j in range(len(q)):
+        theta[i/4][i % 4] = q[j]
+        i += 1
     x = f.readline().rstrip()
-    while x != '':
-        q = x.split("[\s,]")
-        for j in range(len(q)):
-            theta[i] = q[j]
-            i += 1
-        x = f.readline().rstrip()
+
 
 def thetaFunc(y, theta, x):
 
@@ -29,7 +30,7 @@ def thetaFunc(y, theta, x):
     sum = 0
     for i in range(1, deg + 1):
         for j in range(i + 1):
-            sum += theta[spot] * x**(i - j) * y**(j)
+            sum += theta[spot % 7][spot / 7] * x**(i - j) * y**(j)
             spot += 1
     return sum
 
@@ -47,18 +48,18 @@ if __name__ == "__main__":
 #     theta = np.fromregex("RegLogTheta", regexp = r"\s+,(\d+)\s+,", dtype = [(np.float128)])
 #     theta = getTheta()
 
-    txt = open("RegLogTheta", "r").read()
-    txt = re.sub(",", " ", txt)
-    txt = txt.split()
-    
-    txt2 = open("RegLogTheta2", "r").read()
-    txt2 = re.sub(",", " ", txt2)
-    txt2 = txt2.split()
+#     txt = open("RegLogTheta", "r").read()
+#     txt = re.sub(",", " ", txt)
+#     txt = txt.split()
+#     
+#     txt2 = open("RegLogTheta2", "r").read()
+#     txt2 = re.sub(",", " ", txt2)
+#     txt2 = txt2.split()
     'txt = re.sub("[\s+]", ",", txt)'
 #     txt = txt.split(",")
 #     txt = "RegLogTheta".replace(b"\n", b"")
-    theta = np.array(txt, float)
-    theta2 = np.array(txt2,float)
+#     theta = np.array(txt, float)
+#     theta2 = np.array(txt2,float)
     
     x = np.linspace(-1, 1.5, 100)
     y = np.linspace(-1,1.5,100)
@@ -70,14 +71,14 @@ if __name__ == "__main__":
     
     plt.contour(x,y,z, levels = [0])
     
-    plt.figure(2)
-    
-    for i in range(len(x)):
-        for j in range(len(y)):
-            z[i][j] = thetaFunc(y[j], theta2, x[i])
-    
-    plt.contour(x,y,z, levels = [0])
-    
+#     plt.figure(2)
+#     
+#     for i in range(len(x)):
+#         for j in range(len(y)):
+#             z[i][j] = thetaFunc(y[j], theta2, x[i])
+#     
+#     plt.contour(x,y,z, levels = [0])
+#     
     plt.show()
 
     

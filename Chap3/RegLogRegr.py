@@ -41,18 +41,41 @@ def costFunction(theta, X, Y, lam):
         s = s + d
     
     regTerm = lam/(2 * len(X)) * np.dot(theta[1:], theta[1:])
+    
+    '''test'''
+    
+    h = sigmoid.expit(X.dot(theta))
+
+    thetaR = theta[1:].T
+
+    delta = h - Y
+    sumdelta = delta.T.dot(X[:, 1])
+    grad1 = (1.0 / len(X)) * sumdelta
+
+    XR = X[:, 1:X.shape[1]]
+    sumdelta = delta.T.dot(XR)
+
+    grad = (1.0 / len(X)) * (sumdelta + lam * thetaR)
+
+    out = np.zeros(grad.shape[0] + 1)
+    out[0] = grad1
+    out[1:] = grad
+    out = out.T.flatten()
+    
+    '''test'''
         
-    return s + regTerm
+    return s + regTerm, out
         
 if __name__ == '__main__':
     data = np.loadtxt("ex2/ex2data2.txt", delimiter = ",")
     X,Y = np.split(data, [len(data[0,:]) - 1], 1)
     X = constructVariations(X, 6)
+    Y = Y.flatten()
     
-    oneArray = np.ones((len(X),1))
+    oneArray = np.ones((len(X), 1))
     X = np.hstack((oneArray, X))
     theta = np.zeros(28)
-    print(costFunction(theta, X, Y, 0.1))
-    x = (sp.minimize(costFunction, x0 = theta, args = (X,Y, 0.2), method = 'Powell'))
+    print(costFunction(theta.T, X, Y, 0.1))
+    x = (sp.minimize(costFunction, x0 = theta.T, args = (X,Y, 0.2), method = 'bfgs', jac = True))
     print(x)
     
