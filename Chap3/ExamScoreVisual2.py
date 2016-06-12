@@ -7,6 +7,7 @@ import numpy as np
 import ExamScoreVisual as es
 import matplotlib.pyplot as plt
 import scipy.optimize as sci
+import RegLogRegr
 import re
 
 
@@ -55,7 +56,6 @@ if __name__ == "__main__":
 #     txt2 = open("RegLogTheta2", "r").read()
 #     txt2 = re.sub(",", " ", txt2)
 #     txt2 = txt2.split()
-    'txt = re.sub("[\s+]", ",", txt)'
 #     txt = txt.split(",")
 #     txt = "RegLogTheta".replace(b"\n", b"")
 #     theta = np.array(txt, float)
@@ -63,13 +63,20 @@ if __name__ == "__main__":
     
     x = np.linspace(-1, 1.5, 100)
     y = np.linspace(-1,1.5,100)
+    xx, yy = np.meshgrid(x,y)
     z = np.empty((100,100))
+    
+    data = np.c_[xx.ravel(), yy.ravel()]
+    data = RegLogRegr.constructVariations(np.c_[xx.ravel(), yy.ravel()], 6)
+    oneArray = np.ones((len(data),1))
+    data = np.hstack((oneArray, data))
+
     
     for i in range(len(x)):
         for j in range(len(y)):
-            z[i][j] = thetaFunc(y[j], theta, x[i])
+            z[i][j] = thetaFunc(yy[i][j], theta, xx[i][j])
     
-    plt.contour(x,y,z, levels = [0])
+    plt.contour(xx,yy,z, levels = [0])
     
 #     plt.figure(2)
 #     
