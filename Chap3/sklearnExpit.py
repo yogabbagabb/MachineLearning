@@ -32,3 +32,4 @@ if __name__ == '__main__':
     trial = expit(solver = 'sag')
     trial = trial.fit(X = X,y = np.ravel(Y))
     print(trial.coef_)
+    print(trial.intercept_)
