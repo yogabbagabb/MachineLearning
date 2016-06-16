@@ -33,7 +33,7 @@ def thetaFunc(y, theta, x):
         for j in range(i + 1):
             sum += theta[spot] * x**(i - j) * y**(j)
             spot += 1
-    return np.exp(-sum)
+    return sum
 
 
 if __name__ == "__main__":
@@ -83,7 +83,7 @@ if __name__ == "__main__":
             z[i][j] = thetaFunc(yy[i][j], theta, xx[i][j])
     z -= 1.2712452
             
-    plt.contour(xx,yy,z > 1)
+    plt.contour(xx,yy,z, levels = [0])
     
      
     plt.show()
