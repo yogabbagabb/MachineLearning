@@ -13,7 +13,7 @@ def thetaFunc(y, theta, x):
         for j in range(i + 1):
             sum += theta[spot] * x**(i - j) * y**(j)
             spot += 1
-    return np.exp(-sum)
+    return -sum
 
 
 def constructVariations(X, deg):

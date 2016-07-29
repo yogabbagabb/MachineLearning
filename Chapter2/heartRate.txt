@@ -1,0 +1,74 @@
+Systolic, Diastolic, Heart rate, cold (Y = 1 or N), Tired (Y = 1 or N)
+
+105,67,42,0,0
+104,61,50,0,0,15:50,614
+108, 71, 52, 0, 0, ?, 614
+104, 71, 41, 0, 0, 7:19, 615
+96, 64, 46, 0, 1, 11:46, 615
+113, 58, 43, 0, 1 12:43, 615
+110,70,40,1,1,4:13,615
+128,49,112,0,0,20:30,615, after run
+168,49,85,0,0,21:00,615, some time after run
+96,64,45,0,0,9:00,616, morning
+118,63,56,0,0,10:46,616, head throbbing a bit
+115,71,49,0,0,12:54,616, lunch after
+112,68,45,0,1,3:30,616, just worked 
+129,84,50,0,0,4:00,616,drank coffee
+100,63,48,0,0,4:30,616, 30 post coffee
+125,74,45,0,1,6:18,616, visit a friend for 1 hr (but hungry)
+117,76,45,0,0,6:26,617, wake up
+118,72,42,0,1,12:41,617, tired (probably sugar low)
+111,73,47,0,0,12:40,617
+132,80,44,0,0,16:00,617, just before sleeping
+122,65,49,0,0,7:00,618, wake up
+101,61,46,0,1,11:30,618, feeling tired after bringing brother home
+105,67,45,0,0,11:47,618, just drink sports drink (feel better)
+119,74,49,0,1,12:55,618, a bit tired
+105,60,47,0,0,15:17,618, just wake up
+129,71,82,0,0,17:30,618, 10 min after run
+108,71,56,0,0,18:00,618, just ran
+109,66,58,1,0,20:16,618, 76 inside
+122,74,50,0,0,9:44,619, just ate
+96,68,48,0,1,10:14, studying
+111,68,47,0,0,14:04,619, just ate lunch
+109,60,46,0,1,14:28,619, working
+105,70,50,0,0,14:41,619, drink coffee with cocoa
+114,69,55,0,1,16:00,619, working
+118,81,42,0,0,18:00,619, just woke up
+107,72,43,0,0, sometime in evening
+110,73,50,0,0,8:19,620, while eating
+107,64,50,0,1,8:32,620, food digesting (had been eating)
+118,76,53,0,1,1:25,620, at end of second, small pancake (10 min into eating)
+104,69,55,0,0,1:24,620, ate 30 min ago (for last, small time)
+120,60,57,0,0,7:45,620, just ate dinner
+104,69,48,0,0,8:30,620, ate 30 min ago
+108,72,43,0,0,10:12,620, a bit cold
+111,72,50,0,0,9:00,621, at start of eating
+114,76,51,0,0,9:45,621, 40 min after eating 
+107,59,49,0,1,11:09,621, working
+104,68,44,0,1,11:32,621, tired while working
+132,82,43,0,0,12:30,621, directly after short nap (no sleep)
+100,67,49,0,0,4:30,621, directly after long nap 1.5 hr
+98,67,51,0,0,6:30,621, ?
+126,76,51,0,0,7:00,621, ?
+107,71,47,0,0,9:45,621, studying
+80,47,47,0,0,7:30,622, just wake up
+117,53,50,0,0,
+84,60,48,0,0,
+91,55,46,0,0,10:43,622,
+98,64,48,0,1,12:01,622, just moved car and now working
+98,64,52,0,0,4:00,622, before tea
+106,68,50,0,0,4:21,622, just drank tea
+111,77,44,0,0,?,623, ?
+100,69,57,0,0,10:00,623, working
+119,81,50,0,0,6:00,623, going to play
+103,64,51,0,0,10:00,623, finished playing outside an hour ago
+121,73,52,0,0,3:45,624, before go to pick up brother
+127,73,63,0,0,12:00,624, just before lunch
+104,75,50,0,0,8:32,624, just ate breakfast
+106,68,46,0,0,9:00,625, just ate breakfast
+104,82,55,0,0,9:27,626, just washed dishes
+114,76,57,0,1,10:14,626, studying
+81,60,49,0,1,2:46,626, after lunch
+
+
