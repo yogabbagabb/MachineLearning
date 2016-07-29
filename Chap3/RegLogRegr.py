@@ -64,7 +64,7 @@ def costFunction(theta, X, Y, lam):
     
     '''test'''
         
-    return s + regTerm, out
+    return s + regTerm
         
 if __name__ == '__main__':
     data = np.loadtxt("ex2/ex2data2.txt", delimiter = ",")
@@ -76,6 +76,6 @@ if __name__ == '__main__':
     X = np.hstack((oneArray, X))
     theta = np.zeros(28)
     print(costFunction(theta.T, X, Y, 0.1))
-    x = (sp.minimize(costFunction, x0 = theta.T, args = (X,Y, 0.2), method = 'bfgs', jac = True))
+    x = (sp.minimize(costFunction, x0 = theta.T, args = (X,Y, 0.2), method = 'Powell', jac = None))
     print(x)
     
