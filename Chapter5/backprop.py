@@ -31,7 +31,7 @@ def constructY(Y, width):
     
     Ynew = np.zeros((len(Y), width))
     for i in range(len(Y)):
-        Ynew[i][Y[i]-1] = 1
+        Ynew[i][0] = Y[i]
     return Ynew
     
 '''
@@ -202,17 +202,21 @@ Validates whether the gradient, as approximated by a difference equation in the 
 is the same as the gradient as approximated by backpropagation. See lecture videos from chapter 5
 for further explanation
 '''
-def checkGradient(X, Y, thetaO, thetaT):
+def checkGradient(X, Y, thetaO, thetaT, sizeTuple = (5,5,5,5)):
+    
+    if (sizeTuple == (5,5,5,5)):
+        sizeTuple = thetaO.size + thetaT.size
+        
     
     epsilon = 10E-4
     
     DeltaOne, DeltaTwo = backprop(X, Y, thetaO, thetaT, 1)
     
-    DeltaOneDiff = np.zeros(np.shape(DeltaOne))
-    DeltaTwoDiff = np.zeros(np.shape(DeltaTwo))
+    DeltaOneDiff = np.zeros((sizeTuple[0],sizeTuple[1]))
+    DeltaTwoDiff = np.zeros((sizeTuple[2],sizeTuple[3]))
     
-    for i in range(len(thetaO)):  
-        for j in range(thetaO.shape[1]):
+    for i in range(sizeTuple[0]):  
+        for j in range(sizeTuple[1]):
             
             thetaOFirst = np.copy(thetaO)
             thetaOSecond = np.copy(thetaO)
@@ -222,8 +226,8 @@ def checkGradient(X, Y, thetaO, thetaT):
             
             DeltaOneDiff[i,j] = (cost(X, Y, thetaOFirst, thetaT, 1) - cost(X, Y, thetaOSecond, thetaT, 1)) / (2*epsilon)
     
-    for i in range(len(thetaO)):  
-        for j in range((thetaO.shape[1])):
+    for i in range(sizeTuple[2]):  
+        for j in range(sizeTuple[3]):
             
             thetaTFirst = np.copy(thetaT)
             thetaTSecond = np.copy(thetaT)
@@ -233,11 +237,11 @@ def checkGradient(X, Y, thetaO, thetaT):
             
             DeltaTwoDiff[i,j] = (cost(X, Y, thetaO, thetaTFirst, 1) - cost(X, Y, thetaO, thetaTSecond, 1)) / (2*epsilon)
     
-    DeltaOneDiff = np.abs(DeltaOneDiff - DeltaOne) 
-    DeltaTwoDiff = np.abs(DeltaTwoDiff - DeltaTwo)
+    DeltaOneDiff = np.abs(DeltaOneDiff - DeltaOne[0:sizeTuple[0],0:sizeTuple[1]]) 
+    DeltaTwoDiff = np.abs(DeltaTwoDiff - DeltaTwo[0:sizeTuple[2], 0:sizeTuple[3]])
     
     print("Error detected: ", DeltaOneDiff > 0.0001)
-
+    a = 3
 
 def backprop(X, Y, thetaO, thetaT, lam):
     thrLayer, secLayer = forwardProp(X, thetaO, thetaT)
@@ -249,11 +253,15 @@ def backprop(X, Y, thetaO, thetaT, lam):
     
     for i in range(m):
         d3 = thrLayer[i] - yNew[i]
-        d2 = np.multiply(thetaT.T*d3.T, sigprime(secLayer[i,:].T))
-        DeltaTwo += d3.T * expit(secLayer[i,:])
-        a = d2[1:]
+        print(thetaT.T * d3.T)
+        print(sigprime(secLayer[i,:].T))
+        print(secLayer[i,:])
+        print(sigprime(1),sigprime(15),sigprime(31))
+        
+        d2 = np.multiply((thetaT.T*d3.T)[1:], sigprime((X[i,:] * thetaO.T)).T)
+        DeltaTwo += d3.T * (secLayer[i,:])
         b = np.asmatrix((expit(X[i,:])))
-        DeltaOne += a*b 
+        DeltaOne += d2*b 
 
     m = float(m)        
     DeltaOne /= m
@@ -270,5 +278,13 @@ thetaO, thetaT, X, Y = getData()
 
     
 if __name__ == '__main__':
-    checkGradient(X, Y, thetaO, thetaT)
+
+#     checkGradient(X, Y, thetaO, thetaT, (2,2,2,2))
+
+    print(np.asarray([1,7]), np.asarray(8), np.asarray([[1,2],[3,4]]), np.asarray([1,2,3]), 1)
+    print(np.asmatrix([1,2,3]))
+    print(np.asmatrix([1,2,3]).T)
+
+    backprop(np.asmatrix([1,7]), np.asmatrix(8), np.asmatrix([[1,2],[3,4]]), np.asmatrix([1,2,3]), 1)
+    
         
