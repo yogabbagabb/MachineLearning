@@ -22,7 +22,7 @@ Xprime = np.matrix(data.get('X'))
 x = 4
 
 def getData():
-    return thetaO, thetaT, X,Y
+    return np.asmatrix(thetaO), np.asmatrix(thetaT), np.asmatrix(X),np.asmatrix(Y)
 
 if __name__ == '__main__':
     pass

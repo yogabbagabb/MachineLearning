@@ -7,9 +7,7 @@ from scipy.special import expit
 from numpy.random import rand as randArr
 import numpy as np
 
-import scipy.io as sio
-import numpy.ma as ma
-import csv
+from scipy import optimize
 
 from data import getData
 
@@ -31,7 +29,7 @@ def constructY(Y, width):
     
     Ynew = np.zeros((len(Y), width))
     for i in range(len(Y)):
-        Ynew[i][0] = Y[i]
+        Ynew[i][0] = 1
     return Ynew
     
 '''
@@ -75,6 +73,7 @@ def cost(X, Y, thetaO, thetaT, lam):
 #     print(cost)
 #     print(regCost)
     
+    print(cost + regCost)
     return cost + regCost
 '''
 Returns the derivative of the expit function evaluated at z
@@ -128,8 +127,8 @@ def randInit(layerDim):
     layerWeights = []
     
     for i in range(len(layerDim) - 1):
-        x = layerDim[i]
-        y = layerDim[i+1]
+        x = layerDim[i+1]
+        y = layerDim[i] + 1
         epsilon = np.sqrt(6)/np.sqrt(x + y)
         layerWeights.append(randArr(x,y) * 2*epsilon - epsilon)
     return layerWeights
@@ -241,7 +240,9 @@ def checkGradient(X, Y, thetaO, thetaT, sizeTuple = (5,5,5,5)):
     DeltaTwoDiff = np.abs(DeltaTwoDiff - DeltaTwo[0:sizeTuple[2], 0:sizeTuple[3]])
     
     print("Error detected: ", DeltaOneDiff > 0.0001)
-    a = 3
+    print(DeltaOneDiff)
+    print(DeltaTwoDiff)
+    
 
 def backprop(X, Y, thetaO, thetaT, lam):
     thrLayer, secLayer = forwardProp(X, thetaO, thetaT)
@@ -253,14 +254,14 @@ def backprop(X, Y, thetaO, thetaT, lam):
     
     for i in range(m):
         d3 = thrLayer[i] - yNew[i]
-        print(thetaT.T * d3.T)
-        print(sigprime(secLayer[i,:].T))
-        print(secLayer[i,:])
-        print(sigprime(1),sigprime(15),sigprime(31))
+#         print(thetaT.T * d3.T)
+#         print(sigprime(secLayer[i,:].T))
+#         print(secLayer[i,:])
+#         print(sigprime(1),sigprime(15),sigprime(31))
         
         d2 = np.multiply((thetaT.T*d3.T)[1:], sigprime((X[i,:] * thetaO.T)).T)
         DeltaTwo += d3.T * (secLayer[i,:])
-        b = np.asmatrix((expit(X[i,:])))
+        b = np.asmatrix(((X[i,:])))
         DeltaOne += d2*b 
 
     m = float(m)        
@@ -276,15 +277,41 @@ def backprop(X, Y, thetaO, thetaT, lam):
 
 thetaO, thetaT, X, Y = getData()
 
+def flatToWeight(weights, weightDim):
+    x_o, x_t = weightDim[0], weightDim[1]
+    array = weights[0:x_o*x_t]
+    thetaO = np.reshape(weights[0:(x_o * x_t)], (x_o,x_t), order = "C")
+    
+    x_o, x_t = weightDim[2], weightDim[3]
+    thetaT = np.reshape(weights[weightDim[0]*weightDim[1]:], (x_o,x_t), order = "C")
+    
+    return thetaO, thetaT
+def getGradient(weights, X, Y, weightDim, lam):
+    
+    thetaO, thetaT = flatToWeight(weights, weightDim)
+    
+    lam = 1
+    DeltaOne, DeltaTwo = backprop(X, Y, thetaO, thetaT, lam)
+    return np.hstack((DeltaOne.flatten(), DeltaTwo.flatten()))
+
+
+def flatCost(weights,X, Y, weightDim, lam):
+    
+    print("inside flatCost", weights.shape)
+    thetaO, thetaT = flatToWeight(weights, weightDim)
+    
+    lam = 1
+    return cost(X, Y, thetaO, thetaT, lam)
+    
     
 if __name__ == '__main__':
-
-#     checkGradient(X, Y, thetaO, thetaT, (2,2,2,2))
-
-    print(np.asarray([1,7]), np.asarray(8), np.asarray([[1,2],[3,4]]), np.asarray([1,2,3]), 1)
-    print(np.asmatrix([1,2,3]))
-    print(np.asmatrix([1,2,3]).T)
-
-    backprop(np.asmatrix([1,7]), np.asmatrix(8), np.asmatrix([[1,2],[3,4]]), np.asmatrix([1,2,3]), 1)
     
+    weightBasket = randInit((400,25,10))
+    weights = np.array([])
+    for weight in weightBasket:
+        weights = np.hstack((weights, weight.flatten()))
+    weightDim = (25,401,10,26)
+    lam = 1
+    weights = (optimize.minimize(flatCost, weights, args = (X,Y,weightDim,lam), method = "Newton-CG", jac = getGradient))
+    np.save("solutionWeights.npy", weights.get("x"))    
         

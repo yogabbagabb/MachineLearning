@@ -22,13 +22,14 @@ def testDimArray():
     
 if __name__ == '__main__':
      
-    d3 = expit(1 + 2*expit(15) + 3*expit(31))
-    a = d3 - 8
+    a = np.arange(20)
+    a = np.reshape(a[0:10], (5,2), order = 'F')
     print(a)
-    q = np.asarray([1,2,3])
-    r = np.asarray([2,3,4])
-    
-    print((a)*expit(1) * (1-expit(1)), 2*(a)*expit(15)*(1-expit(15)), 3*(a)*expit(31)*(1-expit(31)))
-   
+    b = a.flatten()
+    c = np.arange(3).flatten()
+    print(b,c)
+    print(np.hstack((b,c)))
+    print(b)
+    print(np.reshape(b, (4,5), order = 'F'))
 
         
