@@ -39,7 +39,15 @@ def constructY(Y, width):
 
 def backprop(X, Y, thetaO, thetaT, lam):
     thrLayer, secLayer = forwardProp(X, thetaO, thetaT)
+    # thetaO = a 25 x 401 weight matrix
+    # thetaT = a 10 x 26 weight matrix
+    # thrLayer = a 5000 x 10 matrix; row i contains 10 entries, the greatest of which designates the class
+    # secLayer = a 5000 x 26 matrix; the second layer post activation; has a bias unit
+    # X = a 5000 x 401 matrix; the input one
+    # Y = a 5000 x 1 matrix; row i has a number representing the class (0-9) corresponding to the entry in row i of X
+    
     yNew = constructY(Y, len(thetaT))
+    #The 5000 x 10 output matrix, each
     
     m = len(X)
     DeltaOne = np.zeros(np.shape(thetaO))
@@ -47,6 +55,8 @@ def backprop(X, Y, thetaO, thetaT, lam):
     
     for i in range(m):
         d3 = thrLayer[i] - yNew[i]
+        # Row vector
+        
 #         print(thetaT.T * d3.T)
 #         print(sigprime(secLayer[i,:].T))
 #         print(secLayer[i,:])
