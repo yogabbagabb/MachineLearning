@@ -17,9 +17,7 @@ thetaT = np.matrix(theta.get('Theta2'))
 X = np.load("possibleX.npy")
 Y = np.load("possibleY.npy")
 
-Xprime = np.matrix(data.get('X'))
 
-x = 4
 
 def getData():
     return np.asmatrix(thetaO), np.asmatrix(thetaT), np.asmatrix(X),np.asmatrix(Y)

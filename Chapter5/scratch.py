@@ -6,7 +6,14 @@ Created on Jul 27, 2016
 
 import numpy as np
 from scipy.special import expit
-from Chapter5.backprop import sigprime
+from Chapter5.backprop import sigprime, flatToWeight
+
+def testFlatToWeights():
+    a = np.arange(20)
+    print(a)
+    weightDim = (2,4,6,2)
+    q = flatToWeight(a, weightDim)
+    print(q[1].flatten())
 
 def testPassByReference(array):
     
@@ -22,14 +29,6 @@ def testDimArray():
     
 if __name__ == '__main__':
      
-    a = np.arange(20)
-    a = np.reshape(a[0:10], (5,2), order = 'F')
-    print(a)
-    b = a.flatten()
-    c = np.arange(3).flatten()
-    print(b,c)
-    print(np.hstack((b,c)))
-    print(b)
-    print(np.reshape(b, (4,5), order = 'F'))
+    testFlatToWeights()
 
         

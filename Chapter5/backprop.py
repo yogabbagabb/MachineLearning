@@ -311,7 +311,7 @@ if __name__ == '__main__':
     for weight in weightBasket:
         weights = np.hstack((weights, weight.flatten()))
     weightDim = (25,401,10,26)
-    lam = 1
+    lam = 0
     weights = (optimize.minimize(flatCost, weights, args = (X,Y,weightDim,lam), method = "Newton-CG", jac = getGradient))
     np.save("solutionWeights.npy", weights.get("x"))    
         
