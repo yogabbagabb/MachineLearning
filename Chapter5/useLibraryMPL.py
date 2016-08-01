@@ -3,5 +3,6 @@ Created on Jul 31, 2016
 
 @author: ahanagrawal
 '''
+import pybrain
 
-from sklearn.neural_network import MLPClassifier 
+from pybrain.structure import FeedForwardNetwork 
