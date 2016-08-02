@@ -68,5 +68,5 @@ if __name__ == '__main__':
 
     print(costFunction(features, output, [-3.89578088, 1.19303364]))
     
-    theta = descend(features, output, theta, 0.001, 0.000001)
+    theta = descend(features, output, theta, 0.1, 0.000001)
     print(theta)
