@@ -29,7 +29,7 @@ def constructY(Y, width):
     
     Ynew = np.zeros((len(Y), width))
     for i in range(len(Y)):
-        Ynew[i][0] = 1
+        Ynew[i][Y[i]-1] = 1
     return Ynew
     
 '''
@@ -311,7 +311,9 @@ if __name__ == '__main__':
     for weight in weightBasket:
         weights = np.hstack((weights, weight.flatten()))
     weightDim = (25,401,10,26)
-    lam = 0
-    weights = (optimize.minimize(flatCost, weights, args = (X,Y,weightDim,lam), method = "Newton-CG", jac = getGradient))
+    
+    lam = 1
+    TOL = 1E-3
+    weights = (optimize.minimize(flatCost, weights, args = (X,Y,weightDim,lam), method = "Newton-CG", jac = getGradient, tol = TOL, options= {'maxiter': 200}))
     np.save("solutionWeights.npy", weights.get("x"))    
         

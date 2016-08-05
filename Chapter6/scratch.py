@@ -10,7 +10,36 @@ import numpy as np
 
 
 if __name__ == '__main__':
-    x = np.random.random(10)
-    y = np.random.random(10)
-    print(x)
-    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+    
+    X = np.asarray([[-15.93675813],
+ [-29.15297922],
+ [ 36.18954863],
+ [ 37.49218733],
+ [-48.05882945],
+ [ -8.94145794],
+ [ 15.30779289],
+ [-34.70626581],
+ [  1.38915437],
+ [-44.38375985],
+ [  7.01350208],
+ [ 22.76274892]])
+    
+    Y = np.asarray( [[  2.13431051],
+ [  1.17325668],
+ [ 34.35910918],
+ [ 36.83795516],
+ [  2.80896507],
+ [  2.12107248],
+ [ 14.71026831],
+ [  2.61418439],
+ [  3.74017167],
+ [  3.73169131],
+ [  7.62765885],
+ [ 22.7524283 ]])
+    
+    print(X,Y)
+    
+    
+    for i in range(1,len(X)):
+        slope, intercept, r_value, p_value, std_err = (stats.linregress(X[0:i,0], y = Y[0:i,0]))
+    

@@ -17,10 +17,11 @@ library function in scipy for this exercise.
 '''
 
 x = sio.loadmat("machine-learning-ex5/ex5/ex5data1.mat")
-X = x.get("X")
-Y = x.get("y")
+X = np.asarray(x.get("X"))
+Y = np.asarray(x.get("y"))
 Xval = x.get("Xval")
-Xval = np.hstack((np.ones(len(Xval),1), Xval))
+onesArray = np.ones(shape = (len(Xval),1))
+Xval = np.hstack((onesArray, Xval))
 
 Yval = x.get("yval")
 Xtest = x.get("Xtest")
@@ -36,19 +37,18 @@ if __name__ == '__main__':
     
     stderr = np.matrix(np.zeros((len(X),1)))
     stderr_cVal = np.matrix(np.zeros((len(X),1)))
-    
+    trainingSize = np.arange(1, len(X) + 1)
     
     for i in range(1,len(X)):
-        print(np.cov(X[0:i,:], Y[0:i,:]))
-        
-    for i in range(1,len(X)):
-        slope, intercept, r_value, p_value, std_err = (linregress(X[0:i,:], y = Y[0:i,:]))
+        slope, intercept, r_value, p_value, std_err = (linregress(X[0:i,0], y = Y[0:i,0]))
         theta = np.array([intercept, slope])
         stderr[i] = std_err
         stderr_cVal[i] = costFunction(Xval, Yval, theta)
+    
+    
          
-    plt.plot(X, stderr)
-    plt.plot(Xval, stderr_cVal)
+    plt.plot(trainingSize, stderr, "ro")
+    plt.plot(trainingSize, stderr_cVal, "bo")
      
     plt.show()
 #     
